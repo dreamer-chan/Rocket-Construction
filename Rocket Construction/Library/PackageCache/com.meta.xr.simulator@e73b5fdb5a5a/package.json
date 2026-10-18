@@ -1,0 +1,24 @@
+{
+  "name": "com.meta.xr.simulator",
+  "displayName": "Meta XR Simulator",
+  "version": "81.0.0",
+  "description": "Meta XR Simulator allows developers to preview their VR changes without needing a physical device.",
+  "samples": [],
+  "unity": "2022.3",
+  "unityRelease": "15f1",
+  "author": {
+    "name": "Meta Platforms, Inc.",
+    "url": "https://developers.meta.com/horizon/"
+  },
+  "licensesUrl": "https://developers.meta.com/horizon/licenses/oculussdk/",
+  "licenseMessage": "By adding or using this package you agree to the terms and conditions of the Meta Platforms Technologies SDK License Agreement: https://developer.oculus.com/licenses/oculussdk",
+  "keywords": [
+    "Quest",
+    "Meta",
+    "XrSim",
+    "Oculus"
+  ],
+  "documentationUrl": "https://developer.oculus.com/documentation/unity/xrsim-unity",
+  "changelogUrl": "https://developer.oculus.com/downloads/package/meta-xr-simulator/",
+  "_fingerprint": "e73b5fdb5a5adc6c2a2e0178178ab44705859f66"
+}
