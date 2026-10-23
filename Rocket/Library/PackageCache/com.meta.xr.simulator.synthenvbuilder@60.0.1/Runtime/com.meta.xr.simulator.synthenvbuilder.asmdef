@@ -1,0 +1,22 @@
+{
+    "name": "com.meta.xr.simulator.synthenvbuilder",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Postprocessing.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "define": "OVR_UNITY_PACKAGE_MANAGER",
+            "name": "com.meta.xr.simulator.synthenvbuilder",
+            "expression": ""
+        }
+    ],
+    "noEngineReferences": false
+}

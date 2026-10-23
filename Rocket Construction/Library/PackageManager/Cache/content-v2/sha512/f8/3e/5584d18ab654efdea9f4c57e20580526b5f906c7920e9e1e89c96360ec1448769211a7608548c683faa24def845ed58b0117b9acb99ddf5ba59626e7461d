@@ -1,1 +1,0 @@
-{"status":"Valid","reason":"Signature is ok","isLegacy":false,"attestation":{"version":1,"format":"archive","integrity":"sha256-biuKerUOB3wi2Hn9/V1TVi9TfyUzkrArXrIxkjL2HXk=","packageName":"com.unity.xr.interaction.toolkit","packageVersion":"3.6.1","publishingChannel":"unity","entitlementKeys":[],"artifactType":"upmPackage"}}

@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Button text="Initialize Scene" display-tooltip-when-elided="true" name="InitializeSceneButton" />
+    <uie:ObjectField label="Selected Object" name="SelectedObjectField" />
+    <ui:TextField picking-mode="Ignore" label="Type" text="Not a scene entity" name="EntityTypeField" readonly="true" />
+    <ui:GroupBox name="MakeEntityButtonGroup" style="display: none; visibility: visible;">
+        <ui:Button text="Make 2D Scene Entity" display-tooltip-when-elided="true" name="Make2DEntityButton" />
+        <ui:Button text="Make 3D Scene Entity" display-tooltip-when-elided="true" name="Make3DEntityButton" />
+    </ui:GroupBox>
+    <ui:GroupBox name="2DEntityInformationGroup" style="visibility: visible; display: none;">
+        <ui:DropdownField label="Label" index="-1" name="2DSemanticLabelField" choices="CEILING,DOOR_FRAME,FLOOR,WALL_ART,WALL_FACE,WINDOW_FRAME,COUCH,TABLE" />
+        <ui:Button text="Clear Entity Info" display-tooltip-when-elided="true" name="2DClearEntityInfoButton" />
+    </ui:GroupBox>
+    <ui:GroupBox name="3DEntityInformationGroup" style="visibility: visible; display: none;">
+        <ui:DropdownField label="Label" index="-1" name="3DSemanticLabelField" choices="COUCH,TABLE,BED,LAMP,PLANT,SCREEN,STORAGE,OTHER" />
+        <uie:Vector3Field label="Center" name="3DEntityCenterField" style="align-items: stretch;" />
+        <uie:Vector3Field label="Size" name="3DEntitySizeField" />
+        <ui:Button text="Reset Center and Size" display-tooltip-when-elided="true" name="ResetCenterAndSizeButton" />
+        <ui:Button text="Clear Entity Info" display-tooltip-when-elided="true" name="3DClearEntityInfoButton" />
+    </ui:GroupBox>
+</ui:UXML>
