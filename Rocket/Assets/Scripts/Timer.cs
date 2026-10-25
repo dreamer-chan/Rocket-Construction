@@ -9,55 +9,55 @@ public class Timer : MonoBehaviour
     public Button startButton;
     public TMP_Text timerText;
 
+    [Header("Рестарт")]
+    public SceneRestarter sceneRestarter;   // ← ссылка на объект рестартера
+
     [Header("Настройки")]
-    public int targetValue = 5;
     public float tickInterval = 1f;
+    public int Value = 8;
+    public int CountSeconds = 0;
 
-    public event Action OnReachedTarget;
+    public bool isRunning = false;
 
-    // 🔓 Публичное свойство — можно читать и менять из любого скрипта
+    private bool isCompleted = false;       // ← чтобы рестарт не срабатывал повторно
+
     public int CurrentValue
     {
         get => currentValue;
         set
         {
             currentValue = value;
-
-            // Если внешний скрипт выставил значение >= target — фиксируем достижение
-            if (currentValue >= targetValue)
-            {
-                currentValue = targetValue;
-                if (!targetReached)
-                {
-                    targetReached = true;
-                    isRunning = false;
-                    Debug.Log("Таймер достиг значения 5 (изменено извне)!");
-                    OnReachedTarget?.Invoke();
-                }
-            }
-
             UpdateUI();
+
+            if (currentValue == Value && !isCompleted)
+            {
+                isCompleted = true;
+                isRunning = false;
+                Debug.Log("Ракета собрана за " + FormatTime(CountSeconds));
+
+                if (sceneRestarter != null)
+                    sceneRestarter.RestartScene();
+                else
+                    Debug.LogWarning("sceneRestarter не назначен в инспекторе!");
+            }
         }
     }
 
-    [SerializeField] private int currentValue = 0; // реальное значение (скрыто в инспекторе, но видно, если нужно)
-
+    [SerializeField] private int currentValue = 0;
     private float tickTimer = 0f;
-    private bool isRunning = false;
-    private bool targetReached = false;
 
     void Start()
     {
         if (startButton != null)
             startButton.onClick.AddListener(StartTimer);
-
         UpdateUI();
     }
 
     public void StartTimer()
     {
-        if (isRunning || targetReached) return;
+        if (isRunning || isCompleted) return;
         isRunning = true;
+        tickTimer = 0f;
     }
 
     void Update()
@@ -65,26 +65,34 @@ public class Timer : MonoBehaviour
         if (!isRunning) return;
 
         tickTimer += Time.deltaTime;
-        if (tickTimer >= tickInterval)
+        while (tickTimer >= tickInterval)
         {
             tickTimer -= tickInterval;
-
-            CurrentValue += 1; // используем свойство, чтобы сработали все проверки
+            CountSeconds += 1;
+            UpdateUI();
         }
+    }
+
+    private string FormatTime(int totalSeconds)
+    {
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return $"{minutes:00}:{seconds:00}";
     }
 
     void UpdateUI()
     {
         if (timerText != null)
-            timerText.text = currentValue.ToString("0");
+            timerText.text = FormatTime(CountSeconds);
     }
 
     public void ResetTimer()
     {
         CurrentValue = 0;
+        CountSeconds = 0;
         tickTimer = 0f;
         isRunning = false;
-        targetReached = false;
+        isCompleted = false;
         UpdateUI();
     }
 
