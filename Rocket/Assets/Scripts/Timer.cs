@@ -10,16 +10,22 @@ public class Timer : MonoBehaviour
     public TMP_Text timerText;
 
     [Header("Рестарт")]
-    public SceneRestarter sceneRestarter;   // ← ссылка на объект рестартера
+    public SceneRestarter sceneRestarter;
 
     [Header("Настройки")]
     public float tickInterval = 1f;
     public int Value = 8;
     public int CountSeconds = 0;
 
+    [Header("Эффекты при завершении")]
+    public AudioSource finishSound;        // ← звук
+    public GameObject objectToEnable;      // ← объект, который включить
+    public Animator animatorToPlay;        // ← аниматор, который запустить
+    public string animationTriggerName = "Play"; // ← имя триггера в аниматоре
+
     public bool isRunning = false;
 
-    private bool isCompleted = false;       // ← чтобы рестарт не срабатывал повторно
+    private bool isCompleted = false;
 
     public int CurrentValue
     {
@@ -29,12 +35,36 @@ public class Timer : MonoBehaviour
             currentValue = value;
             UpdateUI();
 
-            if (currentValue == Value && !isCompleted)
+            if (currentValue >= Value && !isCompleted)
             {
                 isCompleted = true;
                 isRunning = false;
                 Debug.Log("Ракета собрана за " + FormatTime(CountSeconds));
 
+                // Звук
+                if (finishSound != null)
+                    finishSound.Play();
+                else
+                    Debug.LogWarning("finishSound не назначен!");
+
+                // Включение объекта
+                if (objectToEnable != null)
+                    objectToEnable.SetActive(true);
+                else
+                    Debug.LogWarning("objectToEnable не назначен!");
+
+                // Анимация
+                if (animatorToPlay != null)
+                {
+                    if (!string.IsNullOrEmpty(animationTriggerName))
+                        animatorToPlay.SetTrigger(animationTriggerName);
+                    else
+                        animatorToPlay.Play("Default");
+                }
+                else
+                    Debug.LogWarning("animatorToPlay не назначен!");
+
+                // Рестарт сцены
                 if (sceneRestarter != null)
                     sceneRestarter.RestartScene();
                 else
